@@ -1,12 +1,7 @@
 import os
 import subprocess
 from util import path
-
-#get length of audio by index
-def getLength(styleOf, topic, x):
-	cmd = f"ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 {path(styleOf, topic)}/audio/{x}.mp3"
-	raw = str(subprocess.check_output([cmd], shell=True))
-	return float(raw.strip("b'").rstrip("\\n"))
+from util import getLength
 
 #image to video
 def imageToVideo(styleOf, topic, x):
@@ -18,32 +13,6 @@ def imageToVideo(styleOf, topic, x):
 def addAudio(styleOf, topic, x):
 	cmd = f"ffmpeg -y -i {path(styleOf, topic)}/video/{x}.mp4 -i {path(styleOf, topic)}/audio/{x}.mp3 -c:v copy -c:a aac {path(styleOf, topic)}/video/{x}a.mp4"
 	return os.system(cmd)
-
-def srtTime(rt):
-	rts = str(int(rt // 1)).rjust(2,"0")
-	rtms = str((rt % 1) + 0.0001)[2:5]
-	return f"00:00:{rts},{rtms}"
-
-#generate srt
-#TODO use timepoints from API
-def genSubs(styleOf, topic, x):
-	vlen = getLength(styleOf, topic, x)
-	f = open(f'{path(styleOf, topic)}/text/{x}.txt','r').readlines()[0]
-	ws = f.split(" ")
-	spw = vlen / len(ws)
-	wss = [ws[i:i + 5] for i in range(0, len(ws), 5)] 
-	lt = 0
-	f2 = open(f'{path(styleOf, topic)}/subtitles/{x}.srt', 'w+')
-	for k in range(0, len(wss)):
-		f2.write(str(k+1))
-		f2.write("\n")
-		rt = min((k+1)*5*spw,vlen)
-		f2.write(srtTime(lt) + " --> " + srtTime(rt))
-		lt = rt
-		f2.write("\n")
-		f2.write(" ".join(wss[k]))
-		f2.write("\n\n")
-	f2.close()
 
 #add caption
 def addCaption(styleOf, topic, x):
@@ -75,7 +44,6 @@ def gen(styleOf, topic, x):
 		next = addAudio(styleOf, topic, x)
 	if (next==0):
 		print("Generating subs")
-		genSubs(styleOf, topic, x)
 		next = addCaption(styleOf, topic, x)
 	print("Done")
 
