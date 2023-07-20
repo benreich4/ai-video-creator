@@ -12,9 +12,9 @@ def gen(styleOf, topic):
 	])
 
 	msgs = response.choices[0].message.content.split("\n")
-	nonempty = [x for x in msgs if x != ""]
+	nonempty = [x for x in msgs if x.strip() != ""]
 	for i in range(0,len(nonempty)):
 		#remove numbering and remove quotes
-		clean = msgs[i][3:].strip('"')
+		clean = nonempty[i][3:].strip('"')
 		with open(f"{path(styleOf, topic)}/text/{i+1}.txt", 'w+') as f:
 				f.write(clean)
