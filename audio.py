@@ -18,8 +18,8 @@ def srtTime(rt):
     return f"00:00:{rts},{rtms}"
 
 def genSubs(styleOf, topic, x, parts, timepoints):
-    path = f'{path(styleOf, topic)}/subtitles/{x}.srt'
-    with open(path, 'w+') as f:
+    p = f'{path(styleOf, topic)}/subtitles/{x}.srt'
+    with open(p, 'w+') as f:
         lt = 0
         vlen=getLength(styleOf, topic, x)
         for k in range(0, len(parts)):
@@ -34,7 +34,7 @@ def genSubs(styleOf, topic, x, parts, timepoints):
             f.write("\n")
             f.write(parts[k])
             f.write("\n\n")
-    print(f'Subtitles written to file {path}')
+    print(f'Subtitles written to file {p}')
 
 
 def gen(styleOf, topic, x):
