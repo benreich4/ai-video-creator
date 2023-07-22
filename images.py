@@ -8,7 +8,8 @@ openai.api_key_path = "assets/open-ai-key"
 
 def gen(styleOf, topic, x):
 	with open(f'{path(styleOf, topic)}/text/{x}.txt', 'r') as f:
-		prompt = f.readlines()[0]
+		txt = f.readlines()[0]
+		prompt = txt.replace("Trump", "")
 		response = openai.Image.create(
 		  prompt=prompt,
 		  n=1,
