@@ -8,12 +8,12 @@ from PIL import Image
 openai.api_key_path = "assets/open-ai-key"
 
 def processText(txt):
-	stopwords = ["Trump", "text", "writing", "words", "paragraph", "letters"]
-	e = yake.KeywordExtractor(top=10, n=1)
+	stopwords = ["Trump", "text", "writing", "words", "paragraph", "letters", "shackles", "slave", "slavery"]
+	e = yake.KeywordExtractor(top=10, n=3)
 	kwss = e.extract_keywords(txt)
 	kws = map(lambda x: x[0], kwss)
-	filtered = filter(lambda x: len(set(x[0]).intersection(set(stopwords)))==0,kws)
-	finals = list(filtered)[0:3]
+	filtered = filter(lambda x: len(set(x.split(" ")).intersection(set(stopwords)))==0,kws)
+	finals = list(filtered)[0:5]
 	prompt = " ".join(finals)
 	return prompt
 
