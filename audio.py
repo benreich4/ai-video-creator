@@ -44,7 +44,7 @@ def gen(styleOf, topic, x):
     client = tts.TextToSpeechClient()
 
     ws = prompt.split(" ")
-    wss = [ws[i:i + 5] for i in range(0, len(ws), 5)] 
+    wss = [ws[i:i + 1] for i in range(0, len(ws), 1)] 
     parts = [" ".join(wss[i]) for i in range(0, len(wss))]
     ssmlPrompt = genSSML(parts)
 
@@ -57,6 +57,11 @@ def gen(styleOf, topic, x):
         language_code="en-GB", 
         name="en-GB-Neural2-D"
     )
+
+    # voice = tts.VoiceSelectionParams(
+    #     language_code="en-US", 
+    #     name="en-US-Neural2-F"
+    # )
 
     # Select the type of audio file you want returned
     audio_config = tts.AudioConfig(

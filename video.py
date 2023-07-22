@@ -16,7 +16,7 @@ def addAudio(styleOf, topic, x):
 
 #add caption
 def addCaption(styleOf, topic, x):
-	cmd = f'ffmpeg -y -i {path(styleOf,topic)}/video/{x}a.mp4 -lavfi "subtitles={path(styleOf, topic)}/subtitles/{x}.srt:force_style=\'Alignment=10,MarginV=Fontsize=24\'" {path(styleOf, topic)}/video/{x}b.mp4'
+	cmd = f'ffmpeg -y -i {path(styleOf,topic)}/video/{x}a.mp4 -lavfi "subtitles={path(styleOf, topic)}/subtitles/{x}.srt:force_style=\'Alignment=10,Fontsize=30\'" {path(styleOf, topic)}/video/{x}b.mp4'
 	return os.system(cmd)
 
 #concat all videos
