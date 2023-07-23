@@ -5,11 +5,11 @@ from util import path
 
 openai.api_key_path = "assets/open-ai-key"
 
-def gen(styleOf, topic):
+def gen(styleOf, topic, length):
 	response = openai.ChatCompletion.create(
 		model="gpt-3.5-turbo",
 		messages=[
-			{"role": "system", "content": f"Generate 2 enumerated short sentences in the style of {styleOf} on the topic of {topic}."},
+			{"role": "system", "content": f"Generate {len} short enumerated sentences in the style of {styleOf} on the topic of {topic}."},
 	])
 
 	msg = response.choices[0].message.content
