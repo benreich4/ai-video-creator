@@ -14,13 +14,13 @@ def processText(txt):
 	kws = map(lambda x: x[0], kwss)
 	filtered = filter(lambda x: len(set(x.split(" ")).intersection(set(stopwords)))==0,kws)
 	finals = list(filtered)[0:5]
-	prompt = " ".join(finals)
+	prompt = ", ".join(finals)
 	return prompt
 
 def gen(styleOf, topic, x):
 	with open(f'{path(styleOf, topic)}/text/{x}.txt', 'r') as f:
 		txt = f.readlines()[0]
-		prompt = processText(txt)
+		prompt = "A beautiful, interesting photograph-quality image that will be used as a background image for a video. The image should evoke ideas of " + processText(txt)
 		response = openai.Image.create(
 		  prompt=prompt,
 		  n=1,
