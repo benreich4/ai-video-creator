@@ -50,7 +50,7 @@ def gen(styleOf, topic, x):
 	#add background audio
 	#upload
 def genAll(styleOf, topic):
-	for i in range(1, 4):
+	for i in range(1, 3):
 		gen(styleOf, topic, i)
 	concat(styleOf, topic)
 	addMusic(styleOf, topic)

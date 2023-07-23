@@ -20,7 +20,7 @@ def createPaths(styleOf, topic):
 def gen(styleOf, topic):
 	createPaths(styleOf, topic)
 	text.gen(styleOf, topic)
-	for i in range(1, 4):
+	for i in range(1, 3):
 		audio.gen(styleOf, topic, i)
 		images.gen(styleOf, topic, i)
 	video.genAll(styleOf, topic)

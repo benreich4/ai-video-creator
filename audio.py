@@ -67,7 +67,7 @@ def gen(styleOf, topic, x):
     audio_config = tts.AudioConfig(
         audio_encoding=tts.AudioEncoding.MP3,
         pitch= -3,
-        speaking_rate = 1.25
+        speaking_rate = 1.2
     )
 
     # Perform the text-to-speech request on the text input with the selected
