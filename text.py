@@ -13,7 +13,7 @@ def gen(styleOf, topic):
 	])
 
 	msg = response.choices[0].message.content
-	msgs = re.split("\d\.", msg)
+	msgs = re.split("\d[\.|\)]", msg)
 	nonempty = [x for x in msgs if x.strip() != ""]
 	for i in range(0,len(nonempty)):
 		#remove numbering and remove quotes
