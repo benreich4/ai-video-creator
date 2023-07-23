@@ -5,7 +5,7 @@ from util import getLength
 
 #image to video
 def imageToVideo(styleOf, topic, x):
-	vlen = getLength(styleOf, topic, x) + 0.25
+	vlen = getLength(styleOf, topic, x) + 0.15
 	cmd = f'ffmpeg -y -loop 1 -i {path(styleOf, topic)}/images/{x}.png -y -filter_complex "[0]scale=1080:-2,setsar=1:1[out];[out]crop=1080:1920[out];[out]scale=8000:-1,zoompan=z=\'zoom+0.002\':x=iw/2-(iw/zoom/2):y=ih/2-(ih/zoom/2):d=500:s=1080x1920:fps=25[out]" -acodec aac -vcodec libx264 -map "[out]" -map "0:a?" -pix_fmt yuv420p -r 25 -t {vlen} {path(styleOf, topic)}/video/{x}.mp4'
 	return os.system(cmd)
 
