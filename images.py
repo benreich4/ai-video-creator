@@ -7,8 +7,11 @@ from PIL import Image
 
 openai.api_key_path = "assets/open-ai-key"
 
-def processText(txt):
-	stopwords = ["Trump", "Taylor", "text", "writing", "words", "paragraph", "letters", "shackles", "slave", "slavery"]
+def processText(styleOf, topic, txt):
+	stopwords = ["text", "writing", "words", "paragraph", "letters", "shackles", "slave", "slavery"]
+	#remove the names from the prompts:
+	for w in styleOf.split(" ") + topic.split(" "):
+		stopwords.append(w)
 	e = yake.KeywordExtractor(top=10, n=3)
 	kwss = e.extract_keywords(txt)
 	kws = map(lambda x: x[0], kwss)
@@ -20,7 +23,7 @@ def processText(txt):
 def gen(styleOf, topic, x):
 	with open(f'{path(styleOf, topic)}/text/{x}.txt', 'r') as f:
 		txt = f.readlines()[0]
-		prompt = "A beautiful, interesting photograph-quality image that will be used as a background image for a video. The image should evoke ideas of " + processText(txt)
+		prompt = "A beautiful, interesting photograph-quality image that will be used as a background image for a video. The image should evoke ideas of " + processText(styleOf, topic, txt)
 		response = openai.Image.create(
 		  prompt=prompt,
 		  n=1,
