@@ -9,7 +9,7 @@ def gen(styleOf, topic, length):
 	response = openai.ChatCompletion.create(
 		model="gpt-3.5-turbo",
 		messages=[
-			{"role": "system", "content": f"Generate {len} short enumerated sentences in the style of {styleOf} on the topic of {topic}."},
+			{"role": "system", "content": f"Generate {len} short enumerated quotes in the styleOf {styleOf} on the topic of {topic}."},
 	])
 
 	msg = response.choices[0].message.content
