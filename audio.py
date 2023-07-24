@@ -1,6 +1,7 @@
 from google.cloud import texttospeech_v1beta1 as tts
 from util import path
 from util import getLength
+import voiceinfo
 import os
 
 def genSSML(parts):
@@ -54,20 +55,15 @@ def gen(styleOf, topic, x):
     # Build the voice request, select the language code ("en-US") and the ssml
     # voice gender ("neutral")
     voice = tts.VoiceSelectionParams(
-        language_code="en-GB", 
-        name="en-GB-Neural2-D"
+        language_code=voiceinfo.get(styleOf).language_code, 
+        name=voiceinfo.get(styleOf).name
     )
-
-    # voice = tts.VoiceSelectionParams(
-    #     language_code="en-US", 
-    #     name="en-US-Neural2-F"
-    # )
 
     # Select the type of audio file you want returned
     audio_config = tts.AudioConfig(
         audio_encoding=tts.AudioEncoding.MP3,
-        pitch= -3,
-        speaking_rate = 1.2
+        pitch= voiceinfo.get(styleOf).pitch,
+        speaking_rate = voiceinfo.get(styleOf).speaking_rate
     )
 
     # Perform the text-to-speech request on the text input with the selected
