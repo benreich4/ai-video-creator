@@ -5,8 +5,9 @@ from util import path
 
 openai.api_key_path = "assets/open-ai-key"
 
-def gen(styleOf, topic, length):
-	prompt = f"Generate {length} short enumerated quotes in the style of {styleOf} on the topic of {topic}."
+def gen(styleOf, topic, length, extra):
+	prompt = f"Generate {length} quotes in the style of {styleOf} on the topic of {topic}. There should only be {length} sentences. They should all be 20-30 words longs. The should all be numbered like \"1. this is the first sentence\". {extra}"
+	print(prompt)
 
 	response = openai.ChatCompletion.create(
 		model="gpt-3.5-turbo",
